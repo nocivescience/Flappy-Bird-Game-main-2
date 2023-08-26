@@ -4,6 +4,8 @@ let img = document.getElementById('bird-1');
 let sound_point = new Audio('sounds effect/point.mp3');
 let sound_die = new Audio('sounds effect/die.mp3');
 
+let datosCloud = [];
+
 // getting bird element properties
 let bird_props = bird.getBoundingClientRect();
 
@@ -17,6 +19,29 @@ let score_title = document.querySelector('.score_title');
 let game_state = 'Start';
 img.style.display = 'none';
 message.classList.add('messageStyle');
+
+const cloud = document.querySelector('.cloud');
+const body = document.querySelector('body');
+let cloud_step = 0;
+
+function dateCloud(){
+    datos= {
+        x: Math.random() * body.clientWidth,
+        y: Math.random() * body.clientHeight/2,
+        size: Math.random() * 60 + 20,
+    }
+    datosCloud.push(datos);
+}
+
+function moveCloud(){
+    if(cloud_step<=-body.clientWidth){
+        cloud_step = 0;
+    }
+    cloud_step--;
+    cloud.style.left = (cloud_step+body.clientWidth) + 'px';
+    requestAnimationFrame(moveCloud);
+}
+moveCloud();
 
 document.addEventListener('keydown', (e) => {
     
